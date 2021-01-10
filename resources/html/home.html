@@ -1,0 +1,92 @@
+{% extends "html/wrapper.html" %}
+
+
+{% block content %}
+
+<div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="main box-border">
+                    <div id="mi-slider" class="mi-slider">
+                        
+                        {% for item in product-types %}
+                        <ul style="width: 100%;">
+                            <li style="height: 100%; width: 100%;">
+                            <div>
+                                <img src=/images/{{ item.src }} style="height: 100%; width: 100%;" alt={{item.alt}}>
+                            </div></li>
+                        </ul>
+                        {% endfor %}
+                        <nav>
+                            {% for item in product-types %}
+                            <a href="#">{{item.name}}</a>
+                            {% endfor %}
+                        </nav>
+                    </div>
+                </div>
+                <br />
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-md-3">
+                <div>
+                    <a href="#" class="list-group-item active">Product types
+                    </a>
+                    <ul class="list-group">
+
+                        {% for item in product-types %}
+                        <li class="list-group-item"><a href=/producttypes?producttypeid={{item.id}}>{{item.name}}</a>
+      <span class="label label-primary pull-right">{{item.productcount}}</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <!-- /.col -->
+            <div class="col-md-9">
+                <!-- /.row -->
+                <div>
+                    <ol class="breadcrumb">
+                        <li class="active">Most popular products</li>
+                    </ol>
+                </div>
+                <!-- /.row -->
+                <div class="row">
+                    {% for item in products %}
+                    <div class="col-md-4 text-center col-sm-6 col-xs-6">
+                        <div class="thumbnail product-box">
+                            <img src=/images/{{ item.src }} alt="" />
+                            <div class="caption">
+                                <h3><a href="#">{{item.name}} </a></h3>
+                                <p>Price : <strong>$ {{item.price}},00</strong>  </p>
+                                <p><a href="#">{{item.producttypename}}</a></p>
+                                <p>{{item.description}}</p>
+                                <p><a href="#" class="btn btn-success" role="button">Add To Cart</a> <a href="#" class="btn btn-primary" role="button">See Details</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+                <div class="row">
+                    <ul class="pagination alg-right-pad">
+                        <li><a href="#">&laquo;</a></li>
+                        <li><a href="/home/1">1</a></li>
+                        <li><a href="/home/2">2</a></li>
+                        <li><a href="/home/3">3</a></li>
+                        <li><a href="/home/4">4</a></li>
+                        <li><a href="/home/5">5</a></li>
+                        <li><a href="#">&raquo;</a></li>
+                    </ul>
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+
+    {% endblock %}

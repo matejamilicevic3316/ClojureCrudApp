@@ -1,0 +1,32 @@
+<html>
+    <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        {% style "/css/style.css" %}
+    </head>
+    <div class="wrapper fadeInDown">
+      <div id="formContent">
+        <a href="/login"><h2 class="inactive underlineHover"> Sign In </h2></a>
+        <a href="/registration"><h2 class="active">Register</h2></a>
+        <div class="fadeIn">
+          <img id="icon" style="height: 75px; width: auto;" src="/images/603655-200.png" alt="User Icon" />
+        </div>
+        <form method="POST" action="/registration">
+          <input type="text" id="username" name="username" placeholder="username">
+          <p class="validationError" id="usernameError" style="color:red "> {{ usernameError }}</p>
+          <input type="text" id="password"  name="password" placeholder="password">
+          <p class="validationError" id="passwordError" style="color:red"> {{ passwordError }}</p>
+          <input type="text" id="firstName"  name="firstName" placeholder="Fisrt name">
+          <p class="validationError" id="firstnameError" style="color:red">{{ firstNameError }}</p>
+          <input type="text" id="lastName"  name="lastName" placeholder="Last name">
+          <p class="validationError" id="lastnameError" style="color:red"> {{ lastNameError }}</p>
+          <input type="text" id="mail"  name="mail" placeholder="mail">
+          <p class="validationError" id="mailError" style="color:red"> {{ mailError }}</p>
+          <input type="submit" id="submit" value="Log In">
+        </form>
+        <p style="color:red"> {{ serverError }} </p>
+      </div>
+    </div>
+</html>
+<script>
+</script>
+<style></style>

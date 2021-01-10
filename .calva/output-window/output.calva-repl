@@ -1,0 +1,25 @@
+; This is the Calva evaluation results output window.
+; TIPS: The keyboard shortcut `ctrl+alt+c o` shows and focuses this window
+;   when connected to a REPL session.
+; Please see https://calva.io/output/ for more info.
+; Happy coding! ♥️
+
+; Connecting ...
+; Hooking up nREPL sessions...
+; Connected session: clj
+; TIPS: 
+;   - You can edit the contents here. Use it as a REPL if you like.
+;   - `alt+enter` evaluates the current top level form.
+;   - `ctrl+enter` evaluates the current form.
+;   - `alt+up` and `alt+down` traverse up and down the REPL command history
+;      when the cursor is after the last contents at the prompt
+;   - Clojure lines in stack traces are peekable and clickable.
+clj꞉crudapp.core꞉> (sqlQueryExecutor.sqlqueryhelper/get-product-types) ; Use `alt+enter` to evaluate
+#object[sqlQueryExecutor.sqlqueryhelper$get_product_types 0x6b19de1b "sqlQueryExecutor.sqlqueryhelper$get_product_types@6b19de1b"]
+clj꞉crudapp.core꞉> 
+(sqlQueryExecutor.sqlqueryhelper/get-product-types)
+({:name "TV", :count 1, :src "voxtv.jpg", :productcount "vox tv"})
+clj꞉crudapp.core꞉> (sqlQueryExecutor.sqlqueryhelper/get-product-type-from-db 1)
+{:id 1, :name "TV", :description "Television and other components for TV", :imgid 1}
+clj꞉crudapp.core꞉> 
+; nREPL Connection was closed

@@ -1,0 +1,17 @@
+{:port 4501
+ :conn {:dbtype  "postgresql"
+         :dbname "clojure"
+         :host "localhost"
+         :user "postgres"
+         :password "Sifra123"},
+ :mailConfiguration {:host "smtp.gmail.com"
+                     :user "clojureappmail@gmail.com"
+                     :pass "Sifra123"
+                     :port 587
+                     :auth true
+                     :tls true
+                     :starttls.enable true
+                     :ssl.enable true
+                     :ssl.trust true
+                     }
+ }

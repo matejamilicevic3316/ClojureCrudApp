@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        {% style "/css/style.css" %}
+    </head>
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+          <a href="/login"><h2 class="active"> Sign In </h2></a>
+          <a href="/registration"><h2 class="inactive underlineHover">Register </h2></a>
+      
+          <div class="fadeIn first">
+            <img id="icon" style="height: 75px; width: auto;" src="/images/603655-200.png" alt="User Icon" />
+          </div>
+          <form method="POST" action="/login">
+            <input type="text" id="login" name="username" placeholder="login">
+            <p class="validationError" id="usernameError" style="color:red "> {{ usernameError }}</p>
+            <input type="text" id="password"  name="password" placeholder="password">
+
+            <input type="submit" value="Log In">
+          </form>
+          <p  style="color:red">
+            {{ error }}
+          </p>
+        </div>
+      </div>
+</html>
+<style></style>
