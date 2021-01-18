@@ -16,12 +16,12 @@
   (redirect "/login")
   )
 
-(defn get-products [id] (executeQuery (if (= nil id)  
-"SELECT products.id as productid,products.name,products.description,src,alt,producttypes.name as producttypename,price FROM products INNER JOIN images 
-on products.imageid = images.id INNER JOIN producttypes on products.producttypeid = producttypes.id" 
-(str "SELECT products.id as productid,products.name,products.description,src,alt,producttypes.name as producttypename FROM products INNER JOIN images 
+(defn get-product [id] (executeQuery (str "SELECT products.id as productid,price,products.name,products.description,src,alt,producttypes.name as producttypename FROM products INNER JOIN images 
 on products.imageid = images.id INNER JOIN producttypes on products.producttypeid = producttypes.id
-WHERE products.id = " id))))
+WHERE products.id = " id)))
+
+(defn get-products-pagination [page] (executeQuery (str "SELECT products.id as productid,products.name,products.description,src,alt,producttypes.name as producttypename,price FROM products INNER JOIN images 
+on products.imageid = images.id INNER JOIN producttypes on products.producttypeid = producttypes.id OFFSET 3 * ("(if (= nil page) 1 page) "-1) LIMIT 3")))
 
 (defn get-product-types [] (executeQuery "SELECT producttypes.id,producttypes.name, count(products.id) as productcount,src,alt FROM producttypes 
 inner join products on producttypes.id = products.producttypeid inner join images on images.id = producttypes.imgid 

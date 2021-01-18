@@ -57,13 +57,13 @@
                     {% for item in products %}
                     <div class="col-md-4 text-center col-sm-6 col-xs-6">
                         <div class="thumbnail product-box">
-                            <img src=/images/{{ item.src }} alt="" />
+                            <a href=/product?productid={{ item.productid }}><img src=/images/{{ item.src }} alt="" /></a>
                             <div class="caption">
                                 <h3><a href="#">{{item.name}} </a></h3>
-                                <p>Price : <strong>$ {{item.price}},00</strong>  </p>
+                                <p>Price : <strong>$ {{item.price}},00 $</strong>  </p>
                                 <p><a href="#">{{item.producttypename}}</a></p>
                                 <p>{{item.description}}</p>
-                                <p><a href="#" class="btn btn-success" role="button">Add To Cart</a> <a href="#" class="btn btn-primary" role="button">See Details</a></p>
+                                <p><a href=/add?productId={{ item.productid }} class="btn btn-success" role="button">Add To Cart</a> <a href=/product?productid={{ item.productid }} class="btn btn-primary" role="button">See Details</a></p>
                             </div>
                         </div>
                     </div>
@@ -74,11 +74,11 @@
                 <div class="row">
                     <ul class="pagination alg-right-pad">
                         <li><a href="#">&laquo;</a></li>
-                        <li><a href="/home/1">1</a></li>
-                        <li><a href="/home/2">2</a></li>
-                        <li><a href="/home/3">3</a></li>
-                        <li><a href="/home/4">4</a></li>
-                        <li><a href="/home/5">5</a></li>
+                        <li><a href="/home?page=1">1</a></li>
+                        <li><a href="/home?page=2">2</a></li>
+                        <li><a href="/home?page=3">3</a></li>
+                        <li><a href="/home?page=4">4</a></li>
+                        <li><a href="/home?page=5">5</a></li>
                         <li><a href="#">&raquo;</a></li>
                     </ul>
                 </div>
