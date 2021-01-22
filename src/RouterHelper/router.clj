@@ -22,5 +22,8 @@
 (GET "/product" {params :query-params} (session/logged-in (fn [_] (renderHtml "product.html" (shop-handler/get-product-info (get params "productid")))) "/login"))
 (GET "/add" {params :query-params} (session/logged-in (fn [_] (shop-handler/add-to-cart (get params "productId") _)) "/login"))
 (GET "/cart" [] (session/logged-in (fn [_] (renderHtml "cart.html" (shop-handler/get-cart-data _))) "/login"))
+(GET "/search" {params :query-params} (session/logged-in (fn [_] (renderHtml "search.html" (shop-handler/search-products (get params "keyword") (get params "page") (get params "producttypeid")))) "/login"))
+(POST "/logout" [] (session/logged-in (fn [_] (session/clear-session :session)) "/login"))
+(POST "/order" [] (session/logged-in (fn [_] (shop-handler/order _)) "/login"))
 (not-found "<h1>Page not found</h1>")
 )

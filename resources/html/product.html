@@ -6,8 +6,15 @@
 
 <div class="container">
     <div class="row">
-        <div style="text-align: center;" class="col-md-12">
-            <img style="width: 600px;" src=/images/{{ product.src }} alt="" />
+        <div class="col-md-2"></div>
+        <div style="text-align: center; background-color:gainsboro; border-radius: 10px;" class="col-md-8">
+            <h2> {{ product.name }} </h2>
+            <img style="width: 600px; border: 1px solid black;" src=/images/{{ product.src }} alt="" />
+            <p style="font-size: 20px; margin:15px;"> <strong> Description: </strong>{{ product.description }}</p>
+            <div class="col-md-12;"">
+                <h2>{{product.price}},00 $</h2>
+                <a href=/add?productId={{product.productid}} class="btn btn-success" role="button">Add To Cart</a> 
+            </div>
         </div>
         <!-- /.col -->
     </div>

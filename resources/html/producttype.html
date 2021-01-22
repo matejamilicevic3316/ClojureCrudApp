@@ -5,13 +5,16 @@
 
 
 <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h1>{{product-type.description}}</h1>
+        <div style="text-align: center;" class="row">
+            <div style="text-align: center; background-color:gainsboro; border-radius: 5px;" class="col-md-12">
+                <h2>{{product-type.name}}</h2>
+                <p>{{product-type.description}}</p>
+                <a href=/search?producttypeid={{product-type.id}}><p>Show products..</p></a>
+                
             </div>
             <!-- /.col -->
         </div>
     </div>
 
-    {% endblock %}
+{% endblock %}
     

@@ -6,9 +6,9 @@
   (-> (response "User removed")
       (assoc :session (dissoc session :user))))
 
-(defn clear-session []
-  (-> (response "Session cleared")
-      (dissoc :session)))
+(defn clear-session [{session :session}]
+  (-> (redirect "/login")
+      (assoc :session (dissoc session :user :cart))))
 
 (defn logged-in [handler redirectRoute]
   (fn [request] 
@@ -28,4 +28,8 @@
 
 (defn get-cart-data-from-session [request]
   (:cart (:session request))
+  )
+
+(defn get-user-data-from-session [request]
+  (:user (:session request))
   )

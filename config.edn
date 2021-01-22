@@ -1,4 +1,4 @@
-{:port 4502
+{:port 4503
  :conn {:dbtype  "postgresql"
          :dbname "clojure"
          :host "localhost"

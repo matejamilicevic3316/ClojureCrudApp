@@ -33,21 +33,22 @@
 
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">24x7 Support <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Settings<b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#"><strong>Log out</strong></a></li>
+                            <li><form name="logoutform" action="/logout" method="POST"><a><strong>Log out</strong></a></form></li>
                             <li><a href="#"><strong>Change password</strong></a></li>
                             <li><a href="#"><strong>My orders</strong>info@yourdomain.com</a></li>
                         </ul>
                     </li>
                     <li><a class="btn btn-primary" href="/cart">My Cart</a></li>
                 </ul>
-                <form class="navbar-form navbar-right" role="search">
+                <form class="navbar-form navbar-right" method="GET" action="/search">
                     <div class="form-group">
-                        <input type="text" placeholder="Enter Keyword Here ..." class="form-control">
-                    </div>
-                    &nbsp; 
-                    <button type="submit" class="btn btn-primary">Search</button>
+                            <input type="text" name="keyword" placeholder="Enter Keyword Here ..." class="form-control">
+                
+                            &nbsp;
+                            <input type="submit" value="Search" class="btn btn-primary"></input>
+                    </div> 
                 </form>
             </div>
             <!-- /.navbar-collapse -->
@@ -133,6 +134,16 @@
 
         $('#mi-slider').catslider();
 
+    });
+
+    var button = document.querySelector('form[name="logoutform"] > a');
+    button.addEventListener("click",function() {
+    document.querySelector('form[name="logoutform"]').submit();
+    });
+
+    var button2 = document.querySelector('form[name="orderform"] > a');
+    button2.addEventListener("click",function() {
+    document.querySelector('form[name="orderform"]').submit();
     });
     </script>
 </body>

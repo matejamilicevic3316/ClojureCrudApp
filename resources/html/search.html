@@ -1,0 +1,39 @@
+{% extends "html/wrapper.html" %}
+
+
+{% block content %}
+
+
+<div class="container">
+    {% for item in products %}
+
+                <div style="border:1px solid black; border-radius: 10px; min-height: 150px; background-color:#e8dedc;" class="layout-inline row">
+              
+                    <div class="col-md-2">
+                        <a href=/product?productid={{item.productid}}><img style="border:1px solid black;" src=/images/{{item.src}} alt="kitten" /></a>
+                    </div>
+                    
+                    <div class="col-md-8">
+                        <h4>{{item.name}}</h4>
+                        <p>{{item.description}}</p>
+                    </div>
+            
+                    <div class="col-md-2"">
+                        <h2>{{item.price}},00 $</h2>
+                        <a href=/add?productId={{item.productid}} class="btn btn-success" role="button">Add To Cart</a> 
+                    </div>
+                    <div class="col col-numeric">               <p> {{item.totalPrice}}</p>
+                    </div>
+                </div>
+
+            {% endfor %}
+    <div class="row">
+        <ul class="pagination alg-right-pad">
+            {% for id in page-count %}
+                <li><a href=search?keyword={{keyword}}&page={{id}}>{{id}}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+{% endblock %}

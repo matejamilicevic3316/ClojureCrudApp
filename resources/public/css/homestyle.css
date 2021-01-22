@@ -39,6 +39,8 @@ a:hover {
     text-decoration:none;
 }
 
+
+
 /*=======================================
   NAVBAR ADJUSTMENTS
 ==================================================*/
@@ -73,11 +75,12 @@ color: #FFFFFF;
 color: #050505;
 background-color: #FFFFFF;
 }
-.navbar-default .navbar-nav .open .dropdown-menu > li > a {
+.navbar-default .navbar-nav .open .dropdown-menu > li > form > a {
 color: #000;
 }
-.navbar-default .navbar-nav .open .dropdown-menu > li > a:hover {
+.navbar-default .navbar-nav .open .dropdown-menu > li > form > a:hover {
 color: #000;
+cursor: pointer;
 }
 /*=======================================
   BOOTSTRAP ADJUSTMENTS
