@@ -11,6 +11,7 @@
                  [metosin/ring-http-response "0.9.1"]
                  [compojure "1.6.2"]
                  [yogthos/config "1.1.7"]
+                 [clojure.java-time "0.3.2"]
                  [org.clojure/java.jdbc "0.7.11"]
                  [org.postgresql/postgresql "42.2.18"]
                  [selmer/selmer "1.12.29"]

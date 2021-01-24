@@ -1,0 +1,20 @@
+{% extends "html/wrapper.html" %}
+
+
+{% block content %}
+        
+    <div class="container">
+            <div class="row">
+                <a class="btn" style="background-color: aqua;" href="/editproducttype">Add</a>
+            </div>
+            {% for producttype in product-types %}
+                <div class="admin-page-presentation">
+                    <h1>{{producttype.name}}</h1>
+                    <p>{{producttype.description}}</p>
+                    <img src=/images/{{producttype.src}} alt={{producttype.alt}}/>
+                    <a class="btn" style="background-color: red;" href="/delete?table=producttypes&id={{producttype.id}}">Delete</a>
+                    <a class="btn" style="background-color: green;" href="/editproducttype?id={{producttype.id}}">Update</a>
+                </div>
+            {% endfor %}
+    </div>
+{% endblock %}

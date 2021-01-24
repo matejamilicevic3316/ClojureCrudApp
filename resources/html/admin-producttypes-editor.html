@@ -1,0 +1,19 @@
+{% extends "html/wrapper.html" %}
+
+
+{% block content %}
+        
+    <div class="container"  style="text-align: center;">
+        <form method="POST" action="/editproducttypes"  enctype="multipart/form-data">
+            <h3>Name:</h3>
+            <input class="my-input" type="text" name="name" placeholder="name" value={{product-type.name}}></input>
+            <h3>Description:</h3>
+            <textarea class="my-textarea"  name="description" placeholder="Description">{{product-type.description}} </textarea>
+            <h3>Image:</h3>
+            <input class="my-input" type="file" name="file"/>
+            <input value={{product-type.id}} name="id" type="hidden"  />
+            <br/>
+            <input class="my-input" type="submit" value="Save">
+        </form>
+    </div>
+{% endblock %}

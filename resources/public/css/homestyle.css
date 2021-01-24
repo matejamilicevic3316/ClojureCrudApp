@@ -91,6 +91,30 @@ cursor: pointer;
 .btn {
     margin-bottom:5px;
 }
+
+.my-input{
+  width: 100%;
+  margin: 10px;
+}
+
+.my-textarea {
+  height: 100px;
+  width: 100%;
+  margin: 10px;
+}
+
+.admin-page-presentation {
+    border-radius: 20px;
+    width: 30%;
+    height: 400px;
+    overflow: auto;
+    background-color: aliceblue;
+    padding: 5px;
+    float: left;
+    margin: 10px;
+    text-align: center;
+}
+                    
 /*=======================================
   INDEX PAGE
 ==================================================*/
