@@ -1,0 +1,24 @@
+{% extends "html/wrapper.html" %}
+
+
+{% block content %}
+        
+    <div class="container">
+            {% for order in orders %}
+                <div class="admin-page-presentation">
+                    <h3>Date: {{order.ordertime}}</h1>
+                    <h2>Price: {{order.sum}},00 $</p>
+                    <form action="/changeorderstatus" method="POST">
+                        <input type="hidden" name="id" value={{order.id}} />
+                        <input type="hidden" name="isfinished" value={{order.isfinished}} />
+                        <input type="submit" value="Finish order"/>
+                    </form>
+                </div>
+            {% endfor %}
+            <ul class="pagination alg-right-pad">
+                {% for id in page-count %}
+                    <li><a href=/admin/orders?page={{id}}>{{id}}</a></li>
+                {% endfor %}
+            </ul>
+    </div>
+{% endblock %}

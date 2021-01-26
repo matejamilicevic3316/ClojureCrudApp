@@ -1,0 +1,27 @@
+{% extends "html/wrapper.html" %}
+
+
+{% block content %}
+        
+    <div class="container">
+            {% for user in users %}
+                <div class="admin-page-presentation">
+                    <h1>{{user.username}}</h1>
+                    <p>{{user.firstname}}</p>
+                    <p>{{user.lastname}}</p>
+                    <p>{{user.mail}}</p>
+                    <p>isAdmin : {{user.isadmin}}</p>
+                    <form action="/changeuserrole" method="POST">
+                        <input type="hidden" name="id" value={{user.id}} />
+                        <input type="hidden" name="isadmin" value={{user.isadmin}} />
+                        <input type="submit" value="Change role"/>
+                    </form>
+                </div>
+            {% endfor %}
+            <ul class="pagination alg-right-pad">
+                {% for id in page-count %}
+                    <li><a href=/admin/users?page={{id}}>{{id}}</a></li>
+                {% endfor %}
+            </ul>
+    </div>
+{% endblock %}

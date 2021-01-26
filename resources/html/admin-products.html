@@ -9,12 +9,18 @@
             </div>
             {% for product in products %}
                 <div class="admin-page-presentation">
-                    <h1>{{producttype.name}}</h1>
-                    <p>{{producttype.description}}</p>
-                    <img src=/images/{{producttype.src}} alt={{producttype.alt}}/>
-                    <a class="btn" style="background-color: red;" href="/delete?table=producttypes&id={{producttype.id}}">Delete</a>
-                    <a class="btn" style="background-color: green;" href="/editproducttype?id={{producttype.id}}">Update</a>
+                    <h1>{{product.name}}</h1>
+                    <p>{{product.description}}</p>
+                    <p>Price : {{product.price}}</p>
+                    <img src=/images/{{product.src}} alt={{product.alt}}/>
+                    <a class="btn" style="background-color: red;" href="/delete?table=products&id={{product.productid}}">Delete</a>
+                    <a class="btn" style="background-color: green;" href="/editproduct?id={{product.productid}}">Update</a>
                 </div>
             {% endfor %}
+            <ul class="pagination alg-right-pad">
+                {% for id in page-count %}
+                    <li><a href=/admin/products?page={{id}}>{{id}}</a></li>
+                {% endfor %}
+            </ul>
     </div>
 {% endblock %}

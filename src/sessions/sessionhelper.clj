@@ -35,5 +35,5 @@
   )
 
 (defn get-user-data-from-session [request]
-  (:user (:session request))
+  {:user (:user (:session request))}
   )
