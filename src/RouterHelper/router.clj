@@ -38,5 +38,6 @@
 (POST "/changeuserrole" [] (session/is-admin (fn [_] (shop-handler/changerole {:id (:id (:params _)) :isadmin (:isadmin (:params _))})) "/404"))
 (POST "/changeorderstatus" [] (session/is-admin (fn [_] (shop-handler/change-order-status {:id (:id (:params _)) :isfinished (:isfinished (:params _))})) "/404"))
 (GET "/editprofile" [] (session/logged-in (fn [_] (renderHtml "editprofile.html" (session/get-user-data-from-session _))) "/404"))
+(POST "/edituser" [] (session/logged-in (fn [_] (shop-handler/update-user {:firstname (:firstname (:params _)) :lastname (:lastname (:params _)) :password (:password (:params _)) :mail (:mail (:params _)) :username (:username (:params _))} _)) "/404"))
 (not-found "<h1>Page not found</h1>")
 )

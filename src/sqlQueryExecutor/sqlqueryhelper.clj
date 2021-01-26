@@ -55,4 +55,7 @@ on products.imageid = images.id INNER JOIN producttypes on products.producttypei
 (defn get-orders-pagination [page offset] (executeQuery (str "SELECT orders.*,SUM(qty * productprice) FROM ORDERS INNER JOIN ORDERs_product ON orders.id = ORDERs_product.orderid WHERE isfinished = false 
 GROUP BY orders.id OFFSET " offset " * ("(if (= nil page) 1 page) "-1) LIMIT " offset)))
 
+(defn update-user [id firstname lastname username mail password] (executeSql (str "UPDATE USERS SET firstname = " firstname ", lastname = " lastname ", username = " username "
+  , mail = " mail ", password =  " password " WHERE id = " id)))
+
 (defn set-is-order-finished [id isfinished] (executeSql (str "UPDATE ORDERS SET isfinished = " (not (boolean (Boolean/valueOf isfinished))) " WHERE id = " id)))

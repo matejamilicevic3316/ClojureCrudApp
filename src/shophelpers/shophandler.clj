@@ -3,7 +3,8 @@
             [sessions.sessionhelper :refer [add-product-to-cart-session get-cart-data-from-session get-user-data-from-session]]
             [ring.util.response :as response]
             [ring.util.http-response :refer [ok]]
-            [clojure.java.io :as io]))
+            [clojure.java.io :as io]
+            [buddy.hashers :as hashers]))
 
 (defn get-cart-product-count [id cart] (count (filter #(= (:productid %) id) cart)))
 
@@ -31,8 +32,6 @@
 
 (defn search-products [keyword page producttypeid] (let [products (query/search-products-db keyword (or page 1) (or producttypeid 0))] {:products products :page-count (get-product-count products) :keyword keyword}))
 
-(defn order [_] (let [order-id (query/add-order-with-id (:id (:user (get-user-data-from-session _))))] (query/add-order-articles order-id (filter-cart-data (get-cart-data-from-session _))) (response/redirect "/home")))
-
 (defn delete [table id] (query/delete-by-id-and-table table id)(response/redirect "/admin/producttypes"))
 
 (defn get-all-product-types [] {:product-types (query/get-product-types)})
@@ -54,6 +53,5 @@
 
 (defn changerole [obj] (query/set-is-user-admin (:id obj) (:isadmin obj))(response/redirect "/admin/users"))
 
-(defn get-orders [page] (let [orders (query/get-orders-pagination page 9)]{:orders orders :page-count (get-product-count orders)}))
 
-(defn change-order-status [obj] (query/set-is-order-finished (:id obj) (:isfinished obj))(response/redirect "/admin/orders"))
+(defn update-user [obj _] (query/update-user (:id (:user (get-user-data-from-session _))) (:firstname obj) (:lastname obj) (:username obj) (:mail obj) ((hashers/derive (:password obj))))(response/redirect "/editprofile"))
