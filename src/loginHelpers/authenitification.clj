@@ -4,7 +4,6 @@
    [sqlQueryExecutor.sqlqueryhelper :refer [getLoginUser registerUser]]
    [renderinghelpers.htmlparser :refer [renderHtml]]
    [buddy.hashers :as hashers]
-   [postal.core :as mailSender]
    [config.core :refer [env]]
    [validators.registrationValidator :refer [check-registration-validity]]
    [validators.loginValidator :refer [check-login-validity]]))

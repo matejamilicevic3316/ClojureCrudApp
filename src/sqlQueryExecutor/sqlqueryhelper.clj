@@ -31,8 +31,8 @@ GROUP BY producttypes.name,src,alt,producttypes.id,producttypes.description"))
 
 (defn check-if-exists [field value] (let [loggedUser (executeQuery (str "SELECT * FROM USERS WHERE " field " = '" value "'"))] (if (> (count loggedUser) 0) (nth loggedUser 0) nil)))
 
-(defn search-products-db [keyword page productypeid] (executeQuery (str "SELECT products.id as productid,products.name,products.description,src,alt,producttypes.name as producttypename,price FROM products INNER JOIN images 
-on products.imageid = images.id INNER JOIN producttypes on products.producttypeid = producttypes.id WHERE (producttypes.name like  '%" keyword "%' OR products.name like '%" keyword "%') OR producttypes.id = " productypeid " OFFSET 9 * (" page "-1) LIMIT 9")))
+(defn search-products-db [page productypeid] (executeQuery (str "SELECT products.id as productid,products.name,products.description,src,alt,producttypes.name as producttypename,price FROM products INNER JOIN images 
+on products.imageid = images.id INNER JOIN producttypes on products.producttypeid = producttypes.id WHERE producttypes.id = " productypeid " OFFSET 9 * (" page "-1) LIMIT 9")))
 
 (defn add-order-with-id [userid] (executeSql (str "INSERT INTO orders (ordertime, userid) VALUES (NOW()," userid ")")) (:maxid (nth (executeQuery "SELECT MAX(id) as maxid from orders") 0))); SELECT MAX(id) from USERS;")))
 
@@ -55,7 +55,7 @@ on products.imageid = images.id INNER JOIN producttypes on products.producttypei
 (defn get-orders-pagination [page offset] (executeQuery (str "SELECT orders.*,SUM(qty * productprice) FROM ORDERS INNER JOIN ORDERs_product ON orders.id = ORDERs_product.orderid WHERE isfinished = false 
 GROUP BY orders.id OFFSET " offset " * ("(if (= nil page) 1 page) "-1) LIMIT " offset)))
 
-(defn update-user [id firstname lastname username mail password] (executeSql (str "UPDATE USERS SET firstname = " firstname ", lastname = " lastname ", username = " username "
-  , mail = " mail ", password =  " password " WHERE id = " id)))
+(defn update-user [id firstname lastname username mail password] (executeSql (str "UPDATE USERS SET firstname = '" firstname "', lastname = '" lastname "', username = '" username "'
+  , mail = '" mail " " (if (nil? password) "" (str "', password =  '" password )) "' WHERE id = '" id "'")))
 
 (defn set-is-order-finished [id isfinished] (executeSql (str "UPDATE ORDERS SET isfinished = " (not (boolean (Boolean/valueOf isfinished))) " WHERE id = " id)))

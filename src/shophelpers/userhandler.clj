@@ -10,4 +10,4 @@
 
 (defn changerole [obj] (query/set-is-user-admin (:id obj) (:isadmin obj))(response/redirect "/admin/users"))
 
-(defn update-user [obj _] (query/update-user (:id (:user (get-user-data-from-session _))) (:firstname obj) (:lastname obj) (:username obj) (:mail obj) ((hashers/derive (:password obj))))(response/redirect "/editprofile"))
+(defn update-user [obj _] (query/update-user (:id (:user (get-user-data-from-session _))) (:firstname obj) (:lastname obj) (:username obj) (:mail obj) (if (or (nil? (:password obj)) (clojure.string/blank? (:password obj))) nil (hashers/derive (:password obj))))(response/redirect "/editprofile"))

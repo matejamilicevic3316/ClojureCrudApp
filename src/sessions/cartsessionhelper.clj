@@ -10,5 +10,9 @@
   (let [old-session (:session _)] (if (> (count (:cart old-session)) 0) (add-to-cart-session product old-session) (initialize-cart-session product old-session)))
 )
 
+(defn empty-cart [_]
+  (-> (redirect "/home")
+      (assoc :session (dissoc (:session _) :cart))))
+
 (defn get-cart-data-from-session [request]
   (:cart (:session request)))

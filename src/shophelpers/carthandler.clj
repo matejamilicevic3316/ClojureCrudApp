@@ -1,7 +1,6 @@
 (ns shophelpers.carthandler
   (:require [sqlQueryExecutor.sqlqueryhelper :as query]
-            [sessions.sessionhelper :refer [add-product-to-cart-session get-cart-data-from-session]]
-            [ring.util.response :as response]
+            [sessions.cartsessionhelper :refer [add-product-to-cart-session get-cart-data-from-session]]
             [ring.util.http-response :refer [ok]]))
 
 (defn get-cart-product-count [id cart] (count (filter #(= (:productid %) id) cart)))

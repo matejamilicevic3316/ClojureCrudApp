@@ -27,7 +27,7 @@
 (GET "/product" {params :query-params} (session/logged-in (fn [_] (renderHtml "product.html" (product-handler/get-product-info (get params "productid")))) "/login"))
 (GET "/add" {params :query-params} (session/logged-in (fn [_] (cart-handler/add-to-cart (get params "productId") _)) "/login"))
 (GET "/cart" [] (session/logged-in (fn [_] (renderHtml "cart.html" (cart-handler/get-cart-data _))) "/login"))
-(GET "/search" {params :query-params} (session/logged-in (fn [_] (renderHtml "search.html" (product-handler/search-products (get params "keyword") (get params "page") (get params "producttypeid")))) "/login"))
+(GET "/search" {params :query-params} (session/logged-in (fn [_] (renderHtml "search.html" (product-handler/search-products (get params "page") (get params "producttypeid")))) "/login"))
 (POST "/logout" [] (session/logged-in (fn [_] (session/clear-session :session)) "/login"))
 (POST "/order" [] (session/logged-in (fn [_] (order-handler/order _)) "/login"))
 (GET "/admin" [] (session/is-admin (fn [_] (renderHtml "admin.html" nil)) "/404"))
