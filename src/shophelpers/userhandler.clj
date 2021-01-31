@@ -8,7 +8,7 @@
             [shophelpers.universalhelpers :as helpers]
             [validators.uservalidator :refer [check-edit-profile]]))
 
-(defn get-users [page] (let [users (query/get-users-pagination page 9)]{:users users :page-count (helpers/get-count-range users)}))
+(defn get-users [page] (let [users (query/get-users-pagination page 9)]{:users users :page-count (helpers/get-page-count page)}))
 
 (defn changerole [obj] (query/set-is-user-admin (:id obj) (:isadmin obj))(response/redirect "/admin/users"))
 

@@ -4,6 +4,7 @@
 {% block content %}
         
     <div class="container">
+        <div class="row">
             {% for user in users %}
                 <div class="admin-page-presentation">
                     <h1>{{user.username}}</h1>
@@ -18,10 +19,13 @@
                     </form>
                 </div>
             {% endfor %}
+        </div>
+        <div class="row">
             <ul class="pagination alg-right-pad">
                 {% for id in page-count %}
                     <li><a href=/admin/users?page={{id}}>{{id}}</a></li>
                 {% endfor %}
             </ul>
+        </div>
     </div>
 {% endblock %}

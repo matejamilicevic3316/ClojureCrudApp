@@ -1,6 +1,7 @@
 {% extends "html/wrapper.html" %}
 
 
+
 {% block content %}
 
 
@@ -10,7 +11,7 @@
                 <div style="border:1px solid black; border-radius: 10px; min-height: 150px; background-color:#e8dedc;" class="layout-inline row">
               
                     <div class="col-md-2">
-                        <a href=/product?productid={{item.productid}}><img style="border:1px solid black;" src=/images/{{item.src}} alt="kitten" /></a>
+                        <a href=/product?productid={{item.productid}}><img style="border:1px solid black;" src=/images/{{item.src}} alt="{{item.src}}" /></a>
                     </div>
                     
                     <div class="col-md-8">
@@ -30,7 +31,12 @@
     <div class="row">
         <ul class="pagination alg-right-pad">
             {% for id in page-count %}
-                <li><a href=search?keyword={{keyword}}&page={{id}}>{{id}}</a></li>
+            {% if not keywordvalue = null %}
+                <li><a href="/search?page={{id}}&keyword={{keywordvalue}}">{{id}}</a></li>
+            {% endif %}
+            {% if not producttypeidvalue = null %}
+                <li><a href="/search?page={{id}}&producttypeid={{producttypeidvalue}}">{{id}}</a></li>
+            {% endif %}
             {% endfor %}
         </ul>
     </div>

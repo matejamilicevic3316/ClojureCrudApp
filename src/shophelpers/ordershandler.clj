@@ -3,7 +3,6 @@
             [sessions.sessionhelper :refer [get-user-data-from-session]]
             [sessions.cartsessionhelper :refer [get-cart-data-from-session empty-cart]]
             [ring.util.response :as response]
-            [shophelpers.universalhelpers :refer [get-count-range]]
             [ring.util.http-response :refer [ok]]
             [shophelpers.carthandler :as carthandler]))
 

@@ -8,15 +8,18 @@
             [validators.productsValidator :refer [check-product-validity]]))
 
 
-(defn get-products-from-db [id] {:products (query/get-products-pagination id 3) :product-types (query/get-product-types)})
+(defn get-products-from-db [id] {:products (query/get-products-pagination id 3 "productcount") :product-types (query/get-product-types)})
 
-(defn get-all-products-paginate [page] (let [products (query/get-products-pagination page 9)]{:products products  :page-count (range (int (Math/ceil (/ (query/get-count "PRODUCTS" "") 9))) (+ 1 (Math/ceil (/ (query/get-count "PRODUCTS" "") 9))))}))
+(defn get-all-products-paginate [page] (let [products (query/get-products-pagination page 9 "products.name")]{:products products  :page-count (range (int (Math/ceil (/ (query/get-count "PRODUCTS" "") 9))) (+ 1 (Math/ceil (/ (query/get-count "PRODUCTS" "") 9))))}))
 
 
 (defn get-product-info-and-types [id] {:product (if (nil? id) nil (let [product (query/get-product id)] (if (> (count product) 0) (nth product 0) nil))) :product-types (query/get-product-types)})
 
 
-(defn search-products [page producttypeid] (let [products (query/search-products-db (or page 1) (or producttypeid 0))] {:products products :page-count (helpers/get-count-range products) :keyword keyword}))
+(defn search-products [page producttypeid keyword] (let [products (query/search-products-db (or page 1) (or producttypeid 0) keyword)] 
+                                                     {:products products :page-count 
+                                                      (helpers/get-page-count page) 
+                                                      :keywordvalue keyword :producttypeidvalue producttypeid}))
 
 (defn add-or-update-product [product] 
   (if-not (clojure.string/blank? (:filename (:image product))) (uploader/upload-handler (:image product)))

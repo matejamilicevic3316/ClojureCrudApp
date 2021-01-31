@@ -24,8 +24,9 @@
 on products.imageid = images.id INNER JOIN producttypes on products.producttypeid = producttypes.id
 WHERE products.id = " id)))
 
-(defn get-products-pagination [page offset] (executeQuery (str "SELECT products.id as productid,products.name,products.description,src,alt,producttypes.name as producttypename,price FROM products INNER JOIN images 
-on products.imageid = images.id INNER JOIN producttypes on products.producttypeid = producttypes.id OFFSET " offset " * ("(if (= nil page) 1 page) "-1) LIMIT "offset"")))
+(defn get-products-pagination [page offset orderby] (executeQuery (str "SELECT products.id as productid,products.name,products.description,src,alt,producttypes.name as producttypename,COUNT(orders_product.productid) as productcount ,price FROM products INNER JOIN images 
+on products.imageid = images.id INNER JOIN producttypes on products.producttypeid = producttypes.id left outer join orders_product ON orders_product.productid = products.id  
+                                                                       GROUP BY products.id,products.name,products.description,src,alt,producttypes.name,price ORDER BY " orderby " DESC OFFSET " offset " * ("(if (= nil page) 1 page) "-1) LIMIT " offset)))
 
 (defn get-product-types [] (executeQuery "SELECT producttypes.id,producttypes.name,producttypes.description, count(products.id) as productcount,src,alt FROM producttypes 
 LEFT join products on producttypes.id = products.producttypeid inner join images on images.id = producttypes.imgid 
@@ -36,8 +37,8 @@ GROUP BY producttypes.name,src,alt,producttypes.id,producttypes.description"))
 (defn check-if-exists [table field value] (let [object (executeQuery (str "SELECT * FROM " table " WHERE " field " = "(if (number? value) "" "'") value (if (number? value) "" "'")))] 
                                             (if (> (count object) 0) (nth object 0) nil)))
 
-(defn search-products-db [page productypeid] (executeQuery (str "SELECT products.id as productid,products.name,products.description,src,alt,producttypes.name as producttypename,price FROM products INNER JOIN images 
-on products.imageid = images.id INNER JOIN producttypes on products.producttypeid = producttypes.id WHERE producttypes.id = " productypeid " OFFSET 9 * (" page "-1) LIMIT 9")))
+(defn search-products-db [page productypeid keyword] (executeQuery (str "SELECT products.id as productid,products.name,products.description,src,alt,producttypes.name as producttypename,price FROM products INNER JOIN images 
+on products.imageid = images.id INNER JOIN producttypes on products.producttypeid = producttypes.id WHERE producttypes.id = " productypeid " " (if (nil? keyword) "" (str "OR products.name like '%" keyword "%' OR producttypes.name like '%" keyword "%'")) " OFFSET 9 * (" page "-1) LIMIT 9")))
 
 (defn add-order-with-id [userid] (executeSql (str "INSERT INTO orders (ordertime, userid) VALUES (NOW()," userid ")")) (:maxid (nth (executeQuery "SELECT MAX(id) as maxid from orders") 0))); SELECT MAX(id) from USERS;")))
 
