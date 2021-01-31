@@ -5,16 +5,19 @@
 <div class="container"  style="text-align: center;">
     <form method="POST" action="/edituser"  enctype="multipart/form-data">
         <h3>First name:</h3>
-        <input class="my-input" type="text" name="firstname" placeholder="First name" value={{user.firstname}}></input>
+        <input class="my-input" type="text" name="firstname" placeholder="First name" value="{{user.firstname}}"></input>
+        <p class="validationError" id="firstnameError" style="color:red">{{ firstNameError }}</p>
         <h3>Last name:</h3>
-        <input class="my-input" type="text" name="lastname" placeholder="Last name" value={{user.lastname}}></input>
-        <h3>Username:</h3>
-        <input class="my-input" type="text" name="username" placeholder="Username" value={{user.username}}></input>
+        <input class="my-input" type="text" name="lastname" placeholder="Last name" value="{{user.lastname}}"></input>
+        <p class="validationError" id="lastnameError" style="color:red"> {{ lastNameError }}</p>
         <h3>Password:</h3>
         <input class="my-input" type="password" name="password"/>
-        <h3>Mail:</h3>
-        <input class="my-input" type="text" name="mail" placeholder="Mail" value={{user.mail}}></input>
+        <p class="validationError" id="passwordError" style="color:red"> {{ passwordError }}</p>
+        <h3>Adress:</h3>
+        <input class="my-input" placeholder="Address" type="text" name="address" value="{{user.address}}"></input>
+        <p class="validationError" id="addressError" style="color:red"> {{ addressError }}</p>
         <br/>
+        
         <input class="my-input" type="submit" value="Save">
     </form>
 </div>

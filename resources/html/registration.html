@@ -13,7 +13,7 @@
         <form method="POST" action="/registration">
           <input type="text" id="username" name="username" placeholder="username">
           <p class="validationError" id="usernameError" style="color:red "> {{ usernameError }}</p>
-          <input type="text" id="password"  name="password" placeholder="password">
+          <input type="password" id="password"  name="password" placeholder="password">
           <p class="validationError" id="passwordError" style="color:red"> {{ passwordError }}</p>
           <input type="text" id="firstName"  name="firstName" placeholder="Fisrt name">
           <p class="validationError" id="firstnameError" style="color:red">{{ firstNameError }}</p>
@@ -21,7 +21,9 @@
           <p class="validationError" id="lastnameError" style="color:red"> {{ lastNameError }}</p>
           <input type="text" id="mail"  name="mail" placeholder="mail">
           <p class="validationError" id="mailError" style="color:red"> {{ mailError }}</p>
-          <input type="submit" id="submit" value="Log In">
+          <input type="text" id="address"  name="address" placeholder="Address">
+          <p class="validationError" id="mailError" style="color:red"> {{ addressError }}</p>
+          <input type="submit" id="submit" value="Register">
         </form>
         <p style="color:red"> {{ serverError }} </p>
       </div>

@@ -7,19 +7,38 @@
         <form method="POST" action="/editproduct"  enctype="multipart/form-data">
             <h3>Name:</h3>
             <input class="my-input" type="text" name="name" placeholder="name" value={{product.name}}></input>
+            <p  style="color:red">
+                {{ nameError }}
+              </p>
             <h3>Description:</h3>
             <textarea class="my-textarea" name="description" placeholder="Description">{{product.description}} </textarea>
+            <p  style="color:red">
+                {{ descriptionError }}
+              </p>
             <h3>Image:</h3>
             <input class="my-input" type="file" name="file"/>
+            <p  style="color:red">
+                {{ imageError }}
+              </p>
             <input class="my-input" placeholder="price" type="text" name="price" value={{product.price}}> </input>
-            <input value={{product.productid}} name="id" type="hidden"/>
+            <p  style="color:red">
+                {{ priceError }}
+              </p>
+            <input class="my-input" placeholder="price" type="text" name="price" value={{product.address}}> </input>
+            <p  style="color:red">
+                {{ addressError }}
+              </p>
+            <input value={{product.productid}} name="productid" type="hidden"/>
             
             <select style="width: 100%;" name="producttypeid">
-                <option>select...</option>
+                <option value=0>select...</option>
                 {% for producttype in product-types %}
-                    <option value={{producttype.id}}>{{producttype.name}}</option>
+                    <option value={{producttype.id}} >{{producttype.name}}</option>
                 {% endfor %}
             </select>
+            <p  style="color:red">
+                {{ productTypeError }}
+              </p>
             <br/>
             <input class="my-input" type="submit" value="Save">
         </form>

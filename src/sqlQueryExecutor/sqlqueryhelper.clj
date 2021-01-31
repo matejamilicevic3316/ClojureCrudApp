@@ -11,17 +11,21 @@
 (defn getLoginUser [username]
   (let [loggedUser (executeQuery (str "SELECT * FROM USERS WHERE USERNAME = '" username "'"))] (if (> (count loggedUser) 0) (nth loggedUser 0) nil)))
 
-(defn registerUser [username password mail firstName lastName]
-  (executeSql (str "INSERT INTO users(username, password, firstname, lastname, mail, isactive, isadmin) Values ('" username "','" password "','" firstName "','" lastName "','" mail "',false,true)"))
+(defn registerUser [username password mail firstName lastName address]
+  (executeSql (str "INSERT INTO users(username, password, firstname, lastname, mail, isactive, isadmin, address) Values ('" username "','" password "','" firstName "','" lastName "','" mail "',false,false,'" address "')"))
   (redirect "/login")
   )
+
+(defn get-count [table additional-string] (:count (nth (executeQuery (str "SELECT COUNT (*) as count FROM " table " " additional-string)) 0)))
+
+(defn get-count-orders [] (count (executeQuery (str "SELECT DISTINCT orderid FROM orders INNER JOIN orders_product on orders.id = orders_product.productid Where (isFinished = false AND orders.id in (SELECT productid from orders_product))"))))
 
 (defn get-product [id] (executeQuery (str "SELECT products.id as productid,price,products.name,products.description,src,alt,producttypes.name as producttypename FROM products INNER JOIN images 
 on products.imageid = images.id INNER JOIN producttypes on products.producttypeid = producttypes.id
 WHERE products.id = " id)))
 
 (defn get-products-pagination [page offset] (executeQuery (str "SELECT products.id as productid,products.name,products.description,src,alt,producttypes.name as producttypename,price FROM products INNER JOIN images 
-on products.imageid = images.id INNER JOIN producttypes on products.producttypeid = producttypes.id OFFSET " offset " * ("(if (= nil page) 1 page) "-1) LIMIT 3")))
+on products.imageid = images.id INNER JOIN producttypes on products.producttypeid = producttypes.id OFFSET " offset " * ("(if (= nil page) 1 page) "-1) LIMIT "offset"")))
 
 (defn get-product-types [] (executeQuery "SELECT producttypes.id,producttypes.name,producttypes.description, count(products.id) as productcount,src,alt FROM producttypes 
 LEFT join products on producttypes.id = products.producttypeid inner join images on images.id = producttypes.imgid 
@@ -29,7 +33,8 @@ GROUP BY producttypes.name,src,alt,producttypes.id,producttypes.description"))
 
 (defn get-product-type-from-db [id] (let [single-item (executeQuery (str "SELECT * FROM producttypes where Id = " id))] (if (> (count single-item) 0) (nth single-item 0) nil)))
 
-(defn check-if-exists [field value] (let [loggedUser (executeQuery (str "SELECT * FROM USERS WHERE " field " = '" value "'"))] (if (> (count loggedUser) 0) (nth loggedUser 0) nil)))
+(defn check-if-exists [table field value] (let [object (executeQuery (str "SELECT * FROM " table " WHERE " field " = "(if (number? value) "" "'") value (if (number? value) "" "'")))] 
+                                            (if (> (count object) 0) (nth object 0) nil)))
 
 (defn search-products-db [page productypeid] (executeQuery (str "SELECT products.id as productid,products.name,products.description,src,alt,producttypes.name as producttypename,price FROM products INNER JOIN images 
 on products.imageid = images.id INNER JOIN producttypes on products.producttypeid = producttypes.id WHERE producttypes.id = " productypeid " OFFSET 9 * (" page "-1) LIMIT 9")))
@@ -48,14 +53,13 @@ on products.imageid = images.id INNER JOIN producttypes on products.producttypei
 
 (defn add-image-return-id [image] (executeSql (str "INSERT INTO Images(src,alt) VALUES ('" image "', '" image "')"))(:maxid (nth (executeQuery "SELECT max(id) as maxid FROM Images") 0)))
 
-(defn get-users-pagination [page offset] (executeQuery (str "SELECT * FROM users OFFSET " offset " * ("(if (= nil page) 1 page) "-1) LIMIT " offset)))
+(defn get-users-pagination [page offset] (executeQuery (str "SELECT * FROM users ORDER BY username OFFSET " offset " * ("(if (= nil page) 1 page) "-1) LIMIT " offset)))
 
 (defn set-is-user-admin [id isadmin] (executeSql (str "UPDATE USERS SET isadmin = " (not (boolean (Boolean/valueOf isadmin))) " WHERE id = " id)))
 
-(defn get-orders-pagination [page offset] (executeQuery (str "SELECT orders.*,SUM(qty * productprice) FROM ORDERS INNER JOIN ORDERs_product ON orders.id = ORDERs_product.orderid WHERE isfinished = false 
+(defn get-orders-pagination [page offset] (executeQuery (str "SELECT orders.*,SUM(qty * productprice) FROM ORDERS INNER JOIN ORDERs_product ON orders.id = ORDERs_product.orderid WHERE isfinished = false
 GROUP BY orders.id OFFSET " offset " * ("(if (= nil page) 1 page) "-1) LIMIT " offset)))
 
-(defn update-user [id firstname lastname username mail password] (executeSql (str "UPDATE USERS SET firstname = '" firstname "', lastname = '" lastname "', username = '" username "'
-  , mail = '" mail " " (if (nil? password) "" (str "', password =  '" password )) "' WHERE id = '" id "'")))
+(defn update-user [id firstname lastname password address] (executeSql (str "UPDATE USERS SET firstname = '" firstname "', lastname = '" lastname (if (nil? password) "" (str "', password =  '" password )) "', address = '" address "' WHERE id = '" id "'")))
 
 (defn set-is-order-finished [id isfinished] (executeSql (str "UPDATE ORDERS SET isfinished = " (not (boolean (Boolean/valueOf isfinished))) " WHERE id = " id)))

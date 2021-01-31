@@ -14,10 +14,18 @@
 ;   - `alt+up` and `alt+down` traverse up and down the REPL command history
 ;      when the cursor is after the last contents at the prompt
 ;   - Clojure lines in stack traces are peekable and clickable.
-clj꞉crudapp.core꞉> (def {:cart "aaaa" :part "uuuuu"})
-; Syntax error compiling def at (c:\Users\mateja.milicevic\Desktop\Clojure\crudapp\.calva\output-window\output.calva-repl:17:20).
-; First argument to def must be a Symbol
-clj꞉crudapp.core꞉> (def aaa {:cart "aaaa" :part "uuuuu"})
-#'crudapp.core/aaa
-clj꞉crudapp.core꞉> 
+clj꞉crudapp.core꞉> (shophelpers.ordershandler/get-orders 1)
+{:orders ({:id 29, :ordertime #inst "2021-01-26T23:00:00.000-00:00", :userid 87, :isfinished false, :sum 50} {:id 35, :ordertime #inst "2021-01-26T23:00:00.000-00:00", :userid 87, :isfinished false, :sum 555} {:id 2, :ordertime #inst "2021-01-20T23:00:00.000-00:00", :userid 87, :isfinished false, :sum 65} {:id 38, :ordertime #inst "2021-01-26T23:00:00.000-00:00", :userid 87, :isfinished false, :sum 555} {:id 27, :ordertime #inst "2021-01-26T23:00:00.000-00:00", :userid 87, :isfinished false, :sum 50} {:id 30, :ordertime #inst "2021-01-26T23:00:00.000-00:00", :userid 87, :isfinished false, :sum 605} {:id 34, :ordertime #inst "2021-01-26T23:00:00.000-00:00", :userid 87, :isfinished false, :sum 550} {:id 39, :ordertime #inst "2021-01-26T23:00:00.000-00:00", :userid 87, :isfinished false, :sum 555} {:id 41, :ordertime #inst "2021-01-29T23:00:00.000-00:00", :userid 89, :isfinished false, :sum 550}), :page-count (5)}
+clj꞉shophelpers.ordershandler꞉> 
+; Execution error (ArityException) at shophelpers.ordershandler/eval9572 (form-init10519316590756128583.clj:18).
+; Wrong number of args (8) passed to: clojure.lang.PersistentArrayMap
+clj꞉shophelpers.ordershandler꞉> (range (int (Math/ceil (/ (query/get-count "orders") 9))) (+ 1 (int (Math/ceil (/ (query/get-count "orders") 9)))))
+(5)
+clj꞉shophelpers.ordershandler꞉> (range 1 5)
+5
+clj꞉shophelpers.ordershandler꞉> (range 1 5)
+(1 2 3 4)
+clj꞉shophelpers.ordershandler꞉> (int (Math/ceil (/ (query/get-count "orders") 9)))
+5
+clj꞉shophelpers.ordershandler꞉> 
 ; nREPL Connection was closed

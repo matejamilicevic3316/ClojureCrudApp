@@ -15,8 +15,8 @@
 
 (defn loginUser [username password] (let [loggingError (check-login-validity username password)] (if-not (nil? loggingError) (renderHtml "login.html" loggingError) (try-login-user username password :session))))
 
-(defn userRegistration [username password mail firstName lastName] 
+(defn userRegistration [username password mail firstName lastName address] 
   (-> (try
-    (let [loggingError (check-registration-validity username password firstName lastName mail)]
-      (if-not (nil? loggingError) (renderHtml "registration.html" loggingError) (registerUser username (hashers/derive password) mail firstName lastName)))
+    (let [loggingError (check-registration-validity username password firstName lastName mail address)]
+      (if-not (nil? loggingError) (renderHtml "registration.html" loggingError) (registerUser username (hashers/derive password) mail firstName lastName address)))
       (catch Exception e (let [serverError {:serverError "Server error"}] (renderHtml "registration.html"  {:serverError e}))))))
