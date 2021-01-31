@@ -6,7 +6,7 @@
     <div class="container"  style="text-align: center;">
         <form method="POST" action="/editproduct"  enctype="multipart/form-data">
             <h3>Name:</h3>
-            <input class="my-input" type="text" name="name" placeholder="name" value={{product.name}}></input>
+            <input class="my-input" type="text" name="name" placeholder="name" value="{{product.name}}"></input>
             <p  style="color:red">
                 {{ nameError }}
               </p>
@@ -20,18 +20,15 @@
             <p  style="color:red">
                 {{ imageError }}
               </p>
-            <input class="my-input" placeholder="price" type="text" name="price" value={{product.price}}> </input>
+            <h3>Price:</h3>
+            <input class="my-input" placeholder="price" type="text" name="price" value="{{product.price}}"> </input>
             <p  style="color:red">
                 {{ priceError }}
-              </p>
-            <input class="my-input" placeholder="price" type="text" name="price" value={{product.address}}> </input>
-            <p  style="color:red">
-                {{ addressError }}
               </p>
             <input value={{product.productid}} name="productid" type="hidden"/>
             
             <select style="width: 100%;" name="producttypeid">
-                <option value=0>select...</option>
+                <option value="0">select...</option>
                 {% for producttype in product-types %}
                     <option value={{producttype.id}} >{{producttype.name}}</option>
                 {% endfor %}

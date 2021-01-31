@@ -10,7 +10,7 @@
 
 (defn get-products-from-db [id] {:products (query/get-products-pagination id 3 "productcount") :product-types (query/get-product-types)})
 
-(defn get-all-products-paginate [page] (let [products (query/get-products-pagination page 9 "products.name")]{:products products  :page-count (range (int (Math/ceil (/ (query/get-count "PRODUCTS" "") 9))) (+ 1 (Math/ceil (/ (query/get-count "PRODUCTS" "") 9))))}))
+(defn get-all-products-paginate [page] (let [products (query/get-products-pagination page 9 "products.name")]{:products products  :page-count  (helpers/get-page-count page) }))
 
 
 (defn get-product-info-and-types [id] {:product (if (nil? id) nil (let [product (query/get-product id)] (if (> (count product) 0) (nth product 0) nil))) :product-types (query/get-product-types)})

@@ -49,8 +49,8 @@ on products.imageid = images.id INNER JOIN producttypes on products.producttypei
 (defn add-or-insert-product-type [product-type] (if (= nil (:id product-type))(executeSql (str "INSERT INTO producttypes(name,description,imgid) VALUES ('" (:name product-type) "', '" (:description product-type) "'," (:imageid product-type) ")"))
                                      (executeSql (str "UPDATE producttypes SET name = '" (:name product-type) "', description = '" (:description product-type) (if (nil? (:imageid product-type)) "' " (str "', imgid = " (:imageid product-type))) " WHERE id = " (:id product-type)))))
 
-(defn add-or-insert-product [product] (if (= nil (:id product))(executeSql (str "INSERT INTO products(name,description,producttypeid,imageid,price) VALUES ('" (:name product) "', '" (:description product) "'," (:producttypeid product) "," (:imageid product) ", " (:price product) ")"))
-                                     (executeSql (str "UPDATE products SET name = '" (:name product) "', description = '" (:description product) "'" (if (nil? (:imageid product)) " " (str ", imageid = " (:imageid product))) " , producttypeid = " (:producttypeid product) ", price = "(:price product)" WHERE id = " (:id product)))))
+(defn add-or-insert-product [product] (if (= nil (:productid product))(executeSql (str "INSERT INTO products(name,description,producttypeid,imageid,price) VALUES ('" (:name product) "', '" (:description product) "'," (:producttypeid product) "," (:imageid product) ", " (:price product) ")"))
+                                     (executeSql (str "UPDATE products SET name = '" (:name product) "', description = '" (:description product) "'" (if (nil? (:imageid product)) " " (str ", imageid = " (:imageid product))) " , producttypeid = " (:producttypeid product) ", price = "(:price product)" WHERE id = " (:productid product)))))
 
 (defn add-image-return-id [image] (executeSql (str "INSERT INTO Images(src,alt) VALUES ('" image "', '" image "')"))(:maxid (nth (executeQuery "SELECT max(id) as maxid FROM Images") 0)))
 
