@@ -24,7 +24,7 @@
   (query/add-or-insert-product (if (clojure.string/blank? (:filename (:image product)))
                    (assoc product :imageid nil) (assoc product :imageid (query/add-image-return-id (:filename (:image product))))))(response/redirect "/admin/products")) 
 
-(defn handle-product [product] (let [validationError (check-product-validity product)] (if (nil? validationError) (add-or-update-product product) (renderHtml "admin-products-editor.html" (assoc validationError :product product :product-types (query/get-product-types)))))) 
+(defn handle-product [product] (helpers/handle-validation-process (check-product-validity product) add-or-update-product product "admin-products-editor.html" :product {:product-types (query/get-product-types nil)})) 
 
 
 
