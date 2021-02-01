@@ -19,7 +19,7 @@
                  [buddy/buddy-hashers "1.7.0"]
                  [com.draines/postal "2.0.4"]
                  [crypto-password "0.2.1"]]
-  :main ^:skip-aot crudapp.core
+  :main ^:skip-aot crudapp.serverrunner
   :clean-targets ^{:protect false}
   {:http-server-root "public"
    :css-dirs ["resources/css"]
