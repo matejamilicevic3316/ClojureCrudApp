@@ -1,13 +1,12 @@
 (ns shophelpers.productshandler
   (:require [sqlQueryExecutor.sqlqueryhelper :as query]
             [ring.util.response :as response]
-            [renderinghelpers.htmlparser :refer [renderHtml]]
             [shophelpers.universalhelpers :as helpers]
             [shophelpers.uploader :as uploader]
             [validators.productsValidator :refer [check-product-validity]]))
 
 
-(defn get-products-from-db [id] (let [product-types (query/get-product-types nil)]{:products (query/get-products-pagination id 3 "productcount") :product-types product-types :product-typer-for-slider (take 3 product-types)}))
+(defn get-products-from-db [page] (let [product-types (query/get-product-types nil)]{:products (query/get-products-pagination page 3 "productcount") :product-types product-types :product-typer-for-slider (take 3 product-types)}))
 
 (defn get-all-products-paginate [page] (let [products (query/get-products-pagination page 9 "products.name")]{:products products  :page-count  (helpers/get-page-count page) }))
 
