@@ -28,9 +28,9 @@ WHERE products.id = " id)))
 on products.imageid = images.id INNER JOIN producttypes on products.producttypeid = producttypes.id left outer join orders_product ON orders_product.productid = products.id  
                                                                        GROUP BY products.id,products.name,products.description,src,alt,producttypes.name,price ORDER BY " orderby " DESC OFFSET " offset " * ("(if (= nil page) 1 page) "-1) LIMIT " offset)))
 
-(defn get-product-types [] (executeQuery "SELECT producttypes.id,producttypes.name,producttypes.description, count(products.id) as productcount,src,alt FROM producttypes 
+(defn get-product-types [count] (executeQuery (str "SELECT producttypes.id,producttypes.name,producttypes.description, count(products.id) as productcount,src,alt FROM producttypes 
 LEFT join products on producttypes.id = products.producttypeid inner join images on images.id = producttypes.imgid 
-GROUP BY producttypes.name,src,alt,producttypes.id,producttypes.description"))
+GROUP BY producttypes.name,src,alt,producttypes.id,producttypes.description " (if (nil? count) "" "LIMIT 3"))))
 
 (defn get-product-type-from-db [id] (let [single-item (executeQuery (str "SELECT * FROM producttypes where Id = " id))] (if (> (count single-item) 0) (nth single-item 0) nil)))
 

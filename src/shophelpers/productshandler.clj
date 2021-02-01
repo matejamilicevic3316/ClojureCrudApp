@@ -1,19 +1,17 @@
 (ns shophelpers.productshandler
   (:require [sqlQueryExecutor.sqlqueryhelper :as query]
             [ring.util.response :as response]
-            [ring.util.http-response :refer [ok]]
             [renderinghelpers.htmlparser :refer [renderHtml]]
             [shophelpers.universalhelpers :as helpers]
             [shophelpers.uploader :as uploader]
             [validators.productsValidator :refer [check-product-validity]]))
 
 
-(defn get-products-from-db [id] {:products (query/get-products-pagination id 3 "productcount") :product-types (query/get-product-types)})
+(defn get-products-from-db [id] (let [product-types (query/get-product-types nil)]{:products (query/get-products-pagination id 3 "productcount") :product-types product-types :product-typer-for-slider (take 3 product-types)}))
 
 (defn get-all-products-paginate [page] (let [products (query/get-products-pagination page 9 "products.name")]{:products products  :page-count  (helpers/get-page-count page) }))
 
-
-(defn get-product-info-and-types [id] {:product (if (nil? id) nil (let [product (query/get-product id)] (if (> (count product) 0) (nth product 0) nil))) :product-types (query/get-product-types)})
+(defn get-product-info-and-types [id] {:product (if (nil? id) nil (let [product (query/get-product id)] (if (> (count product) 0) (nth product 0) nil))) :product-types (query/get-product-types nil)})
 
 
 (defn search-products [page producttypeid keyword] (let [products (query/search-products-db (or page 1) (or producttypeid 0) keyword)] 

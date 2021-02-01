@@ -8,7 +8,7 @@
 
 (defn get-product-type [id] {:product-type (query/get-product-type-from-db id)})
 
-(defn get-all-product-types [] {:product-types (query/get-product-types)})
+(defn get-all-product-types [] {:product-types (query/get-product-types nil)})
 
 (defn add-or-update-product-type [product-type] (if-not (clojure.string/blank? (:filename (:image product-type))) (uploader/upload-handler (:image product-type)))
   (query/add-or-insert-product-type (if (clojure.string/blank? (:filename (:image product-type)))

@@ -9,7 +9,9 @@
           [shophelpers.productshandler :as product-handler]
           [shophelpers.ordershandler :as order-handler]
           [shophelpers.producttypeshandler :as product-type-handler]
-          [shophelpers.universalhelpers :as universal]))
+          [shophelpers.universalhelpers :as universal]
+          [ring.util.response :refer [redirect]]
+          ))
 
 (defroutes app
 (GET "/login" [] (renderHtml "login.html" nil))
@@ -45,5 +47,6 @@
 (POST "/changeorderstatus" [] (session/is-admin (fn [_] (order-handler/change-order-status {:id (:id (:params _)) :isfinished (:isfinished (:params _))})) "/404"))
 (GET "/editprofile" [] (session/logged-in (fn [_] (renderHtml "editprofile.html" (session/get-user-data-from-session _))) "/404"))
 (POST "/edituser" [] (session/logged-in (fn [_] (user-handler/update-user {:firstname (:firstname (:params _)) :lastname (:lastname (:params _)) :password (:password (:params _)) :address (:address (:params _))} _)) "/404"))
+(GET "/" [] (session/logged-in (fn [_] (redirect "/home")) "/login" ))
 (not-found "<h1>Page not found</h1>")
 )
