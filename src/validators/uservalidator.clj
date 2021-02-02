@@ -2,7 +2,7 @@
   (:require
    [validators.baseValidator :refer [is-valid checkIfAnyErrorExist]]))
 
-(def passwordRegex #"^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*[^_.]$")
+(def passwordRegex #"^(?=[a-zA-Z0-9._]{6,20}$)(?!.*[_.]{2})[^_.].*[^_.]$")
 (def firstNameRegex #"^[A-Z][a-z]*$")
 (def lastNameRegex #"^[A-Z][a-z]*$")
 (def addressRegex #"^[\w\n\s\.\,]{5,100}$")

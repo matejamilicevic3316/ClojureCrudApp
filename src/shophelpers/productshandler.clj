@@ -13,7 +13,7 @@
 (defn get-product-info-and-types [id] {:product (if (nil? id) nil (let [product (query/get-product id)] (if (> (count product) 0) (nth product 0) nil))) :product-types (query/get-product-types nil)})
 
 
-(defn search-products [page producttypeid keyword] (let [products (query/search-products-db (or page 1) (or producttypeid 0) keyword)] 
+(defn search-products [page producttypeid keyword] (let [products (query/search-products-db (or page "1") (or producttypeid 0) keyword)] 
                                                      {:products products :page-count 
                                                       (helpers/get-page-count page) 
                                                       :keywordvalue keyword :producttypeidvalue producttypeid}))

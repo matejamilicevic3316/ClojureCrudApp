@@ -23,12 +23,12 @@ SET row_security = off;
 -- Name: clojure; Type: DATABASE; Schema: -; Owner: postgres
 --
 
-CREATE DATABASE clojure WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE = 'English_United States.1252';
+CREATE DATABASE clojure3 WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE = 'English_United States.1252';
 
 
-ALTER DATABASE clojure OWNER TO postgres;
+ALTER DATABASE clojure3 OWNER TO postgres;
 
-\connect clojure
+\connect clojure3
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;

@@ -12,7 +12,7 @@
                  [yogthos/config "1.1.7"]
                  [clojure.java-time "0.3.2"]
                  [org.clojure/java.jdbc "0.7.11"]
-                 [org.postgresql/postgresql "42.2.18"]
+                 [mysql/mysql-connector-java "8.0.16"]
                  [selmer/selmer "1.12.29"]
                  [ring-cors "0.1.13"]
                  [ring-basic-authentication "1.1.0"]

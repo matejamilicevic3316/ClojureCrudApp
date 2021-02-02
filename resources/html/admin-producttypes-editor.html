@@ -4,7 +4,13 @@
 {% block content %}
         
     <div class="container"  style="text-align: center;">
-        <form method="POST" action="/editproducttypes"  enctype="multipart/form-data">
+        <form method="POST" 
+        {% if product-type.id = null %}
+        action="/editproducttypes"
+        {% else %}
+        action="/editproducttypes?id={{product-type.id}}"  
+        {% endif %}
+        enctype="multipart/form-data">
             <h3>Name:</h3>
             <p  style="color:red">
               {{ nameError }}
@@ -20,7 +26,6 @@
             <p style="color:red">
                {{ imageError }}
             </p>
-            <input value={{product-type.id}} name="id" type="hidden"  />
             <br/>
             <input class="my-input" type="submit" value="Save">
         </form>

@@ -4,7 +4,13 @@
 {% block content %}
         
     <div class="container"  style="text-align: center;">
-        <form method="POST" action="/editproduct"  enctype="multipart/form-data">
+        <form method="POST" 
+        {% if product.productid = null %}
+        action="/editproduct"
+        {% else %}
+        action="/editproduct?productid={{product.productid}}"  
+        {% endif %}
+        enctype="multipart/form-data">
             <h3>Name:</h3>
             <input class="my-input" type="text" name="name" placeholder="name" value="{{product.name}}"></input>
             <p  style="color:red">
@@ -25,7 +31,6 @@
             <p  style="color:red">
                 {{ priceError }}
               </p>
-            <input value={{product.productid}} name="productid" type="hidden"/>
             
             <select style="width: 100%;" name="producttypeid">
                 <option value="0">select...</option>

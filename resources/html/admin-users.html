@@ -12,8 +12,7 @@
                     <p>{{user.lastname}}</p>
                     <p>{{user.mail}}</p>
                     <p>isAdmin : {{user.isadmin}}</p>
-                    <form action="/changeuserrole" method="POST">
-                        <input type="hidden" name="id" value={{user.id}} />
+                    <form action="/changeuserrole?id={{user.id}}" method="POST">
                         <input type="hidden" name="isadmin" value={{user.isadmin}} />
                         <input type="submit" value="Change role"/>
                     </form>

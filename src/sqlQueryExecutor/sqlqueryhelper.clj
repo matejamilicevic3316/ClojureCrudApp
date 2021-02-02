@@ -12,7 +12,7 @@
   (let [loggedUser (executeQuery (str "SELECT * FROM USERS WHERE USERNAME = '" username "'"))] (if (> (count loggedUser) 0) (nth loggedUser 0) nil)))
 
 (defn registerUser [username password mail firstName lastName address]
-  (executeSql (str "INSERT INTO users(username, password, firstname, lastname, mail, isactive, isadmin, address) Values ('" username "','" password "','" firstName "','" lastName "','" mail "',false,false,'" address "')"))
+  (executeSql (str "INSERT INTO clojure.users(username, password, firstname, lastname, mail, isadmin, address) Values ('" username "','" password "','" firstName "','" lastName "','" mail "',0,'" address "')"))
   (redirect "/login")
   )
 
@@ -26,11 +26,11 @@ WHERE products.id = " id)))
 
 (defn get-products-pagination [page offset orderby] (executeQuery (str "SELECT products.id as productid,products.name,products.description,src,alt,producttypes.name as producttypename,COUNT(orders_product.productid) as productcount ,price FROM products INNER JOIN images 
 on products.imageid = images.id INNER JOIN producttypes on products.producttypeid = producttypes.id left outer join orders_product ON orders_product.productid = products.id  
-                                                                       GROUP BY products.id,products.name,products.description,src,alt,producttypes.name,price ORDER BY " orderby " DESC OFFSET " offset " * ("(if (= nil page) 1 page) "-1) LIMIT " offset)))
+                                                                       GROUP BY products.id,products.name,products.description,src,alt,producttypes.name,price ORDER BY " orderby " DESC LIMIT " offset "  OFFSET " (* offset (- (if (= nil page) 1 (Long/parseLong page)) 1)))))
 
 (defn get-product-types [count] (executeQuery (str "SELECT producttypes.id,producttypes.name,producttypes.description, count(products.id) as productcount,src,alt FROM producttypes 
 LEFT join products on producttypes.id = products.producttypeid inner join images on images.id = producttypes.imgid 
-GROUP BY producttypes.name,src,alt,producttypes.id,producttypes.description " (if (nil? count) "" "LIMIT 3"))))
+GROUP BY producttypes.name,src,alt,producttypes.id,producttypes.description " (if (nil? count) "" (str "LIMIT " count)))))
 
 (defn get-product-type-from-db [id] (let [single-item (executeQuery (str "SELECT * FROM producttypes where Id = " id))] (if (> (count single-item) 0) (nth single-item 0) nil)))
 
@@ -38,7 +38,7 @@ GROUP BY producttypes.name,src,alt,producttypes.id,producttypes.description " (i
                                             (if (> (count object) 0) (nth object 0) nil)))
 
 (defn search-products-db [page productypeid keyword] (executeQuery (str "SELECT products.id as productid,products.name,products.description,src,alt,producttypes.name as producttypename,price FROM products INNER JOIN images 
-on products.imageid = images.id INNER JOIN producttypes on products.producttypeid = producttypes.id WHERE producttypes.id = " productypeid " " (if (nil? keyword) "" (str "OR products.name like '%" keyword "%' OR producttypes.name like '%" keyword "%'")) " OFFSET 9 * (" page "-1) LIMIT 9")))
+on products.imageid = images.id INNER JOIN producttypes on products.producttypeid = producttypes.id WHERE producttypes.id = " productypeid " " (if (nil? keyword) "" (str "OR products.name like '%" keyword "%' OR producttypes.name like '%" keyword "%'")) " LIMIT 9 OFFSET  "(* 9 (- (Long/parseLong page) 1)))))
 
 (defn add-order-with-id [userid] (executeSql (str "INSERT INTO orders (ordertime, userid) VALUES (NOW()," userid ")")) (:maxid (nth (executeQuery "SELECT MAX(id) as maxid from orders") 0))); SELECT MAX(id) from USERS;")))
 
@@ -54,12 +54,12 @@ on products.imageid = images.id INNER JOIN producttypes on products.producttypei
 
 (defn add-image-return-id [image] (executeSql (str "INSERT INTO Images(src,alt) VALUES ('" image "', '" image "')"))(:maxid (nth (executeQuery "SELECT max(id) as maxid FROM Images") 0)))
 
-(defn get-users-pagination [page offset] (executeQuery (str "SELECT * FROM users ORDER BY username OFFSET " offset " * ("(if (= nil page) 1 page) "-1) LIMIT " offset)))
+(defn get-users-pagination [page offset] (executeQuery (str "SELECT * FROM users ORDER BY username LIMIT " offset " OFFSET " (* offset (- (if (= nil page) 1 (Long/parseLong page)) 1)))))
 
 (defn set-is-user-admin [id isadmin] (executeSql (str "UPDATE USERS SET isadmin = " (not (boolean (Boolean/valueOf isadmin))) " WHERE id = " id)))
 
-(defn get-orders-pagination [page offset] (executeQuery (str "SELECT orders.*,SUM(qty * productprice) FROM ORDERS INNER JOIN ORDERs_product ON orders.id = ORDERs_product.orderid WHERE isfinished = false
-GROUP BY orders.id OFFSET " offset " * ("(if (= nil page) 1 page) "-1) LIMIT " offset)))
+(defn get-orders-pagination [page offset] (executeQuery (str "SELECT orders.*,SUM(qty * productprice) as sum FROM ORDERS INNER JOIN ORDERs_product ON orders.id = ORDERs_product.orderid WHERE isfinished = false
+GROUP BY orders.id LIMIT " offset " OFFSET " (* offset (- (if (= nil page) 1 (Long/parseLong page)) 1)))))
 
 (defn update-user [id firstname lastname password address] (executeSql (str "UPDATE USERS SET firstname = '" firstname "', lastname = '" lastname (if (nil? password) "" (str "', password =  '" password )) "', address = '" address "' WHERE id = '" id "'")))
 
