@@ -1,45 +1,26 @@
-# crudapp
+# Crudapp store
 
-FIXME: description
+This project is created for purpose of exam from "Alati i metode softverskog inzenjerstva".
 
-## Installation
+This project is projected to be online store. 
+Users can register themselves on this web application. After registration user doesn't have admin permissions.
+After login phase, user is being redirected to home page, where he can find most popular products and to also can search for products by keyword or filter them by provided product types.
+On search page, we have 9 products per page with provided pagination. After searching for products, user can add product to cart.
+In right top corner is button "My cart" where user can check his cart and order it if he wants to.
+If user is granted as admin, in standard layout in top left corner is button "Admin page".
+There, user can go to admin page of product types, products, orders and users.
+For users, admin can only change role, from admin to not admin and reverse.
+For orders, admin can only mark order as finished.
+For product types, admin can preview product types, edit, add or delete them.
+For products, admin can preview products, edit, add or delete them.
 
-Download from http://example.com/FIXME.
+# References
 
-## Usage
+https://weavejester.github.io/compojure/compojure.core.html,
+https://github.com/yogthos/Selmer,
+https://reports.aashe.org/media/secure/905/submission-5036/web-development-with-clojure-second-edition_b2_0.pdf
 
-FIXME: explanation
+# License
 
-    $ java -jar crudapp-0.1.0-standalone.jar [args]
-
-## Options
-
-FIXME: listing of options this app accepts.
-
-## Examples
-
-...
-
-### Bugs
-
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
-
-## License
-
-Copyright © 2020 FIXME
-
-This program and the accompanying materials are made available under the
-terms of the Eclipse Public License 2.0 which is available at
-http://www.eclipse.org/legal/epl-2.0.
-
-This Source Code may also be made available under the following Secondary
-Licenses when the conditions for such availability set forth in the Eclipse
-Public License, v. 2.0 are satisfied: GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or (at your
-option) any later version, with the GNU Classpath Exception which is available
-at https://www.gnu.org/software/classpath/license.html.
-# ClojureCrudApp
+Copyright © 2021
+Distributed under the Eclipse Public License either version 1.0 or (at your option) any later version.
