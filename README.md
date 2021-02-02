@@ -4,7 +4,7 @@ This project is created for purpose of exam from "Alati i metode softverskog inz
 
 This project is projected to be online store. 
 Users can register themselves on this web application. After registration user doesn't have admin permissions.
-After login phase, user is being redirected to home page, where he can find most popular products and to also can search for products by keyword or filter them by provided product types.
+After login phase, user is being redirected to home page, where he can find most popular products and also to search for products by keyword or filter them by provided product types.
 On search page, we have 9 products per page with provided pagination. After searching for products, user can add product to cart.
 In right top corner is button "My cart" where user can check his cart and order it if he wants to.
 If user is granted as admin, in standard layout in top left corner is button "Admin page".
